@@ -47,7 +47,7 @@ fc1_dropout = tf.nn.dropout(fc1, dropout1)
 W_fc2 = define_variable([84, 10], "W_fc2")
 b_fc2 = define_variable([10], "b_fc2")
 
-y_output = tf.nn.softmax(tf.nn.relu(tf.matmul(fc1_dropout, W_fc2) + b_fc2))
+y_output = tf.nn.softmax(tf.nn.relu(tf.matmul(fc1_dropout, W_fc2) / dropout1 + b_fc2))  # I think we need compensate here
 
 cross_entropy = -tf.reduce_sum(y*tf.log(y_output))
 train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)
@@ -59,7 +59,7 @@ saver = tf.train.Saver()
 
 sess.run(tf.initialize_all_variables())
 
-for i in range(10000):
+for i in range(50000):
     batch = mnist.train.next_batch(50)
     if i%100 == 0:
         train_accuracy = accuracy.eval(feed_dict={

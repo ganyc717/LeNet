@@ -17,7 +17,7 @@ class MyCanvas:
         self.draw.ellipse((event.x-10,event.y-10,event.x+10,event.y+10),fill=(255,255,255))
 
 root=tkinter.Tk()
-root.geometry('300x300')
+root.geometry('300x400')
 frame=tkinter.Frame(root,width=256,height=256)
 frame.pack_propagate(0)
 frame.pack(side='top')
@@ -25,18 +25,25 @@ canvas1=MyCanvas(frame)
 
 def inference_click():
     img = canvas1.image1
-    print(inference(img))
+    result = inference(img)
+    result = int(result)
     canvas1.canvas.delete("all")
     canvas1.image1 = Image.new("RGB", (256, 256), "black")
     canvas1.draw = ImageDraw.Draw(canvas1.image1)
+    label2["text"] = str(result)
     
 
-btn_Inference=tkinter.Button(root,
+botton_Inference=tkinter.Button(root,
             text="Inference",         
             width=7,           
             height=1,                
             command=inference_click      
             )
-btn_Inference.pack()
 
+botton_Inference.pack()
+label1 = tkinter.Label(root, justify="center",text = "Inference result is")
+label1.pack()
+label2 = tkinter.Label(root, justify="center")
+label2["font"] = ("Arial, 48")
+label2.pack()
 root.mainloop()
