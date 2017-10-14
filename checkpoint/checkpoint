@@ -1,2 +1,2 @@
-model_checkpoint_path: "variable"
-all_model_checkpoint_paths: "variable"
+model_checkpoint_path: "variable.cpkt"
+all_model_checkpoint_paths: "variable.cpkt"
